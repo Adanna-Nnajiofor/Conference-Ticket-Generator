@@ -66,7 +66,7 @@ const SelectTicket = () => {
         {/* Ticket Info */}
         <div className="bg-[#08252B] border-[#0E464F] border-2 rounded-3xl p-6 w-full h-auto">
           <div className="bg-techember-gradient border-[#07373F] p-6 flex flex-col gap-6 justify-center items-center rounded-3xl">
-            <h1 className="text-white text-center text-2xl md:text-[42px]">
+            <h1 className="text-white text-center text-2xl md:text-[42px] font-[jejumyeongjo]">
               Techember Fest ”25
             </h1>
             <p className="text-gray-100 text-center">
