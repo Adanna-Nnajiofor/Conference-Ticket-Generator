@@ -134,13 +134,17 @@ const SelectTicket = () => {
                 name="ticketQuantity"
                 value={ticketQuantity}
                 onChange={handleQuantityChange}
-                className="border-[#07373F] rounded-xl p-3 w-full bg-[#052228] text-white border appearance-none cursor-pointer focus:ring hover:border-blue-300"
+                className="border-[#07373F] rounded-xl p-3 w-full bg-[#052228] text-white border appearance-none cursor-pointer focus:ring hover:border-blue-300 "
                 aria-describedby={
                   errors.quantity ? "quantity-error" : undefined
                 }
               >
                 {[...Array(10).keys()].map((num) => (
-                  <option key={num + 1} value={num + 1}>
+                  <option
+                    key={num + 1}
+                    value={num + 1}
+                    className="w-auto flex flex-col "
+                  >
                     {num + 1}
                   </option>
                 ))}
