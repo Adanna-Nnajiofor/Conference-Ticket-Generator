@@ -32,7 +32,10 @@ const Header = () => {
 
         {/* My Ticket Button */}
         <div>
-          <button className="bg-white text-[#0A0C11] px-4 py-2 rounded-lg flex items-center gap-2 shadow-md">
+          <button
+            className="bg-white text-[#0A0C11] px-4 py-2 rounded-lg flex items-center gap-2 shadow-md"
+            type="button"
+          >
             My Ticket
             <FaArrowRightLong className="ml-2" />
           </button>
