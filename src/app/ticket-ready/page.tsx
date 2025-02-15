@@ -103,7 +103,7 @@ const TicketReady = () => {
 
           <div className="relative z-10 top-6 flex flex-col justify-center items-center h-full  w-auto text-white text-center m-2  bg-[#031e2123] border-[#24A0B5] border-2 rounded-2xl">
             <div className="  p-6 flex flex-col gap-1 justify-center items-center">
-              <h1 className="text-white text-center text-2xl ">
+              <h1 className="text-white text-center text-2xl font-[Jejumyeongjo]">
                 Techember Fest ”25
               </h1>
               <p className="text-gray-100 text-center">

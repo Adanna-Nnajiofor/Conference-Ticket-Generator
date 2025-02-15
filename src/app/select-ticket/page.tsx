@@ -65,8 +65,8 @@ const SelectTicket = () => {
 
         {/* Ticket Info */}
         <div className="bg-[#08252B] border-[#0E464F] border-2 rounded-3xl p-6 w-full h-auto">
-          <div className="bg-techember-gradient border-[#07373F] p-6 flex flex-col gap-6 justify-center items-center rounded-3xl">
-            <h1 className="text-white text-center text-2xl md:text-[42px] font-[jejumyeongjo]">
+          <div className="bg-techember-gradient  box-gradient border-[#07373F] p-6 flex flex-col gap-6 justify-center items-center rounded-3xl">
+            <h1 className="text-white text-center text-2xl md:text-[42px] font-[Jejumyeongjo]">
               Techember Fest ”25
             </h1>
             <p className="text-gray-100 text-center">
@@ -74,7 +74,7 @@ const SelectTicket = () => {
               your spot now.
             </p>
             <div>
-              <p className="text-gray-100 mt-2">
+              <p className="text-gray-100 mt-2 text-center">
                 📍 [Event Location] | March 15, 2025 | 7:00 PM
               </p>
             </div>
@@ -164,7 +164,7 @@ const SelectTicket = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-col justify-between w-full gap-6 lg:flex-row">
+          <div className="flex flex-col-reverse justify-between w-full gap-6 lg:flex-row">
             <button
               type="button"
               className="border-[#24A0B5] py-3 px-6 text-[#24A0B5] rounded-lg border w-full lg:w-1/2"

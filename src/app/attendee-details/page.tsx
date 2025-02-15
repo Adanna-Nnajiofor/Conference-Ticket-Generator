@@ -95,7 +95,7 @@ const AttendeeDetails = () => {
         <div className="bg-[#08252B] border-[#0E464F] border-2 rounded-3xl p-6 w-full">
           <div className="bg-[#052228] border-[#07373F] p-6 pb-10 flex flex-col gap-6 border rounded-3xl w-auto h-auto">
             <p className="text-white text-start mb-4">Upload Profile Photo</p>
-            <div className="bg-[#000000] w-full max-h-[200px] h-auto relative flex">
+            <div className="bg-[#000000] w-full max-h-[200px] h-auto relative flex flex-col">
               <div
                 className={`max-w-[240px] max-h-[240px] w-full h-full  flex justify-center items-center rounded-3xl mx-auto relative bottom-5 transition-all duration-300 
                  ${
