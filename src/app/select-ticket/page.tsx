@@ -43,7 +43,7 @@ const SelectTicket = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center items-center bg-[#041E23]">
+    <div className="w-full min-h-screen flex flex-col justify-center items-center  bg-custom">
       <div
         className="flex flex-col justify-center items-center border-[#0E464F] border-2 border-solid h-auto w-auto lg:max-w-[700px] p-10 gap-8 rounded-[48px] bg-[#041E23] m-6 lg:mx-auto lg:my-10"
         role="form"

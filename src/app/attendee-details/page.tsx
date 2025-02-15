@@ -41,25 +41,44 @@ const AttendeeDetails = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImagePreview(base64String);
-        const attendeeDetails = {
-          name,
-          email,
-          specialRequest,
-          imagePreview: base64String,
-        };
-        localStorage.setItem(
-          "attendeeDetails",
-          JSON.stringify(attendeeDetails)
-        );
-      };
       reader.readAsDataURL(file);
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+
+        // Send the image to the API route
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: base64String }),
+        });
+
+        const data = await response.json();
+        if (data.url) {
+          setImagePreview(data.url);
+
+          const attendeeDetails = {
+            name,
+            email,
+            specialRequest,
+            imagePreview: data.url, // Store Cloudinary URL
+          };
+
+          localStorage.setItem(
+            "attendeeDetails",
+            JSON.stringify(attendeeDetails)
+          );
+        } else {
+          console.error("Upload failed:", data.error);
+        }
+      };
     }
   };
 
@@ -114,7 +133,7 @@ const AttendeeDetails = () => {
                          hover:bg-transparent transition-all duration-300"
                   />
                 ) : (
-                  <div className="p-6 rounded-3xl w-[240px] h-[240px] flex justify-center items-center flex-col">
+                  <div className="p-6 rounded-3xl max-w-[240px] max-h-[240px] w-auto flex justify-center items-center flex-col">
                     <Image
                       src="/images/cloud-download.png"
                       alt="Upload Icon"
@@ -217,6 +236,7 @@ const AttendeeDetails = () => {
               type="button"
               className="bg-[#24A0B5] py-3 px-6 text-white rounded-lg w-full lg:w-1/2"
               onClick={handleNext}
+              disabled={Object.keys(errors).length > 0}
             >
               Get My Free Ticket
             </button>

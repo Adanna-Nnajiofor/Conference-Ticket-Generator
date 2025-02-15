@@ -39,24 +39,46 @@ const TicketReady = () => {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const canvas = await html2canvas(ticketRef.current, { scale: 2 });
-      const image = canvas.toDataURL("image/jpeg"); // Convert to JPG
 
-      // Ask the user for download format
+      const canvas = await html2canvas(ticketRef.current, {
+        scale: 2,
+        useCORS: true,
+      });
+
+      const originalWidth = canvas.width;
+      const originalHeight = canvas.height;
+
+      // Define new dimensions for reduced height
+      const targetWidth = 350;
+      const targetHeight = (originalHeight / originalWidth) * targetWidth;
+
+      // Create a resized canvas
+      const resizedCanvas = document.createElement("canvas");
+      resizedCanvas.width = targetWidth;
+      resizedCanvas.height = targetHeight;
+
+      const ctx = resizedCanvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+      }
+
+      const image = resizedCanvas.toDataURL("image/jpeg");
+
+      // Ask user for format
       const format = confirm(
         "Download as PDF? Click 'OK' for PDF or 'Cancel' for JPG"
       );
 
       if (format) {
-        // Download as PDF
+        // PDF format
         const pdf = new jsPDF("p", "mm", "a4");
         const imgWidth = 210;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const imgHeight = (targetHeight * imgWidth) / targetWidth;
 
         pdf.addImage(image, "JPEG", 0, 0, imgWidth, imgHeight);
         pdf.save("Techember_Fest_Ticket.pdf");
       } else {
-        // Download as JPG
+        // JPG format
         const link = document.createElement("a");
         link.href = image;
         link.download = "Techember_Fest_Ticket.jpg";
@@ -74,7 +96,7 @@ const TicketReady = () => {
   };
 
   return (
-    <div className="bg-[#02191d] w-full h-full  flex flex-col mx-auto lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-auto">
+    <div className="bg-[#02191d] w-full h-auto  flex flex-col mx-auto lg:absolute lg:top-0 lg:left-0 lg:w-full lg:h-auto">
       <div className="flex flex-col justify-center items-center border-[#0E464F] border-2 border-solid h-full w-auto lg:w-full lg:max-w-[700px] p-10 gap-8 rounded-[48px] bg-[#041E23] mx-6 my-12 lg:mx-auto lg:my-0">
         <div className="flex  flex-row justify-between items-start  w-full ">
           <div className="border-b-4 border-[#24A0B5] w-4/5">
@@ -101,7 +123,7 @@ const TicketReady = () => {
         >
           <div className="absolute inset-0 bg-opacity-50"></div>
 
-          <div className="relative z-10 top-6 flex flex-col justify-center items-center h-full  w-auto text-white text-center m-2  bg-[#031e2123] border-[#24A0B5] border-2 rounded-2xl">
+          <div className="relative z-10 top-6 flex flex-col justify-center items-center h-auto  w-auto text-white text-center m-2  bg-[#031e2123] border-[#24A0B5] border-2 rounded-2xl">
             <div className="  p-6 flex flex-col gap-1 justify-center items-center">
               <h1 className="text-white text-center text-2xl font-[Jejumyeongjo]">
                 Techember Fest ”25
@@ -118,13 +140,13 @@ const TicketReady = () => {
 
             {/* Ticket Section */}
             {attendee?.image && (
-              <div className="flex items-center justify-center my-2 w-auto h-full">
+              <div className="flex items-center justify-center my-2 w-auto h-auto">
                 <Image
                   src={attendee.image}
                   alt={`Profile picture of ${attendee?.name || "attendee"}`}
                   width={140}
                   height={140}
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-cover "
                   priority
                 />
               </div>
