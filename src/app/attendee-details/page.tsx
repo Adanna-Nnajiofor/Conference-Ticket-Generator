@@ -45,41 +45,37 @@ const AttendeeDetails = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        const base64String = reader.result as string;
+    if (!file) return;
 
-        // Send the image to the API route
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const base64Image = reader.result as string;
+
+      try {
         const response = await fetch("/api/upload", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ image: base64String }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: base64Image }),
         });
 
         const data = await response.json();
         if (data.url) {
           setImagePreview(data.url);
-
-          const attendeeDetails = {
-            name,
-            email,
-            specialRequest,
-            imagePreview: data.url, // Store Cloudinary URL
-          };
-
           localStorage.setItem(
             "attendeeDetails",
-            JSON.stringify(attendeeDetails)
+            JSON.stringify({
+              name,
+              email,
+              specialRequest,
+              imagePreview: data.url,
+            })
           );
-        } else {
-          console.error("Upload failed:", data.error);
         }
-      };
-    }
+      } catch (error) {
+        console.error("Image upload failed:", error);
+      }
+    };
   };
 
   const handleNext = () => {
